@@ -1,0 +1,18 @@
+@"
+# Mac system files
+.DS_Store
+
+# Server-specific
+bin/oath-orig.sh
+
+# UI-specific
+data.db
+openvpn/
+easy-rsa/pki/vars
+easy-rsa/easy-rsa.vars
+openvpn-ui.Bullseye.x86_64.tar.gz
+easy-rsa/pki/index.txt
+build/qrencode
+openvpn-ui.tar.gz
+qrencode
+"@ | Set-Content -Path .\.gitignore
