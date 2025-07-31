@@ -1,9 +1,9 @@
-name: Sync GitHub → GitLab (main → development)
+name: Sync GitHub → GitLab (development → development)
 
 on:
   push:
     branches:
-      - main
+      - development
 
 jobs:
   gitlab-sync:
@@ -15,13 +15,13 @@ jobs:
         with:
           fetch-depth: 0  # Full clone required for pushing to new branches
 
-      - name: Push to GitLab (main → development)
+      - name: Push to GitLab (development → development)
         run: |
           git config --global user.name "Surya Suresh"
           git config --global user.email "suryasuresh.p20@gmail.com"
           git remote add gitlab https://oauth2:${GITLAB_TOKEN}@gitlab.com/automationrealm/arrms.git
           
-          # Push GitHub 'main' to GitLab 'development'
-          git push gitlab main:development  # DO NOT use --force
+          # Push GitHub 'development' to GitLab 'development'
+          git push gitlab development:development  # DO NOT use --force
         env:
           GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
