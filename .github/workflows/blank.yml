@@ -1,0 +1,27 @@
+name: Sync GitHub → GitLab (main → development)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  gitlab-sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout GitHub code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Full clone required for pushing to new branches
+
+      - name: Push to GitLab (main → development)
+        run: |
+          git config --global user.name "Surya Suresh"
+          git config --global user.email "suryasuresh.p20@gmail.com"
+          git remote add gitlab https://oauth2:${GITLAB_TOKEN}@gitlab.com/automationrealm/arrms.git
+          
+          # Push GitHub 'main' to GitLab 'development'
+          git push gitlab main:development  # DO NOT use --force
+        env:
+          GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
